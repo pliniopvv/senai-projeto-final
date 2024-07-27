@@ -6,15 +6,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthenticationService {
 
-	private final JwtService jwtService;
+	private final TokenService jwtService;
 
-	public AuthenticationService(JwtService jwtService) {
+	public AuthenticationService(TokenService jwtService) {
 		super();
 		this.jwtService = jwtService;
-	}
-
-	public String authentication() {
-		return "token";
 	}
 
 	public String authenticate(Authentication authentication) {

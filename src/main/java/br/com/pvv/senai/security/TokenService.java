@@ -5,21 +5,25 @@ import java.util.stream.Collectors;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
 @Service
-public class JwtService {
+public class TokenService {
 
 	private final JwtEncoder encoder;
+	private final JwtDecoder decoder;
 
-	public JwtService(JwtEncoder encoder) {
+	public TokenService(JwtEncoder encoder, JwtDecoder decoder) {
 		super();
 		this.encoder = encoder;
+		this.decoder = decoder;
 	}
-	
+
 	public String generateToken(Authentication authentication) {
 		Instant now = Instant.now();
 		long expiry = 3600L;
@@ -29,6 +33,10 @@ public class JwtService {
 		var claims = JwtClaimsSet.builder().issuer("senai-labmedical").issuedAt(now)
 				.expiresAt(now.plusSeconds(expiry)).subject(authentication.getName()).claim("scope", scope).build();
 		return encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+	}
+
+	public String validateToken(String token) {
+		return decoder.decode(token).getSubject();
 	}
 	
 }

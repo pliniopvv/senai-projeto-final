@@ -2,6 +2,7 @@ package br.com.pvv.senai.service;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +11,9 @@ import br.com.pvv.senai.model.IEntity;
 @Service
 public class GenericService<T extends IEntity> {
 
-	private JpaRepository<T, Long> repository;
-	
+	@Autowired
+	protected JpaRepository<T, Long> repository;
+	 
 	public T create(T model) {
 		return repository.save(model);
 	}

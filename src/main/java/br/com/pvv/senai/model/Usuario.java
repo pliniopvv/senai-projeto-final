@@ -25,7 +25,7 @@ public class Usuario implements UserDetails, IEntity {
 	private long Id;
 	@Column(length = 255)
 	private String nome;
-	@Column(length = 255)
+	@Column(length = 255, unique = true)
 	private String email;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dataNascimento;
@@ -115,7 +115,7 @@ public class Usuario implements UserDetails, IEntity {
 
 	@Override
 	public boolean isAccountNonExpired() {
-		return false;
+		return true;
 	}
 
 	@Override

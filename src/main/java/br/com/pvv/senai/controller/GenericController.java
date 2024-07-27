@@ -19,34 +19,22 @@ import br.com.pvv.senai.service.GenericService;
 public abstract class GenericController<U extends GenericDto<T>, T extends IEntity> {
 
 	public abstract GenericService<T> getService();
-		
+
 	@GetMapping("{id}")
 	public T get(@PathVariable long id) {
 		return getService().get(id);
 	}
-	
+
 	@PutMapping("{id}")
 	public T put(@PathVariable long id, @RequestBody U model) throws DtoToEntityException {
-		try {
-			return getService().alter(model.getId(), model.makeEntity());
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-				| SecurityException e) {
-			e.printStackTrace();
-			throw new DtoToEntityException(e.getMessage());
-		}
+		return getService().alter(model.getId(), model.makeEntity());
 	}
-	
+
 	@PostMapping
 	public T post(@RequestBody U model) throws DtoToEntityException {
-		try {
-			return getService().create(model.makeEntity());
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-				| SecurityException e) {
-			e.printStackTrace();
-			throw new DtoToEntityException(e.getMessage());
-		}
+		return getService().create(model.makeEntity());
 	}
-	
+
 	@DeleteMapping("{id}")
 	public boolean delete(@PathVariable long id) {
 		return getService().delete(id);
