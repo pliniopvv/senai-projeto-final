@@ -53,4 +53,8 @@ public class PacienteService extends GenericService<Paciente> {
 		return paciente;
 	}
 
+	public long count() {
+		return repository.count();
+	}
+
 }

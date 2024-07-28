@@ -43,4 +43,8 @@ public class ConsultaService extends GenericService<Consulta> {
 		return repository.findByPacienteId(id);
 	}
 
+	public long count() {
+		return repository.count();
+	}
+
 }

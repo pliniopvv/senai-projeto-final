@@ -43,4 +43,8 @@ public class ExameService extends GenericService<Exame> {
 		return repository.findByPacienteId(id);
 	}
 
+	public long count() {
+		return repository.count();
+	}
+
 }
