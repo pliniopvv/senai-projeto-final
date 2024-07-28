@@ -1,6 +1,6 @@
 package br.com.pvv.senai.model.dto;
 
-import br.com.pvv.senai.model.Endereco;
+import br.com.pvv.senai.entity.Endereco;
 
 public class EnderecoDto extends GenericDto<Endereco> {
 

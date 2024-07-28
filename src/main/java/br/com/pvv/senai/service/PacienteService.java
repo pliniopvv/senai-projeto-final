@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import br.com.pvv.senai.model.Paciente;
+import br.com.pvv.senai.entity.Paciente;
 import br.com.pvv.senai.repository.PacienteRepository;
 import br.com.pvv.senai.security.UsuarioService;
 

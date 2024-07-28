@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.pvv.senai.entity.Usuario;
 import br.com.pvv.senai.exceptions.UnauthorizationException;
-import br.com.pvv.senai.model.Usuario;
 import br.com.pvv.senai.model.dto.LoginRequestDTO;
 import br.com.pvv.senai.repository.UserRepository;
 import br.com.pvv.senai.security.TokenService;

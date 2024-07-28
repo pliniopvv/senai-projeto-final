@@ -1,4 +1,4 @@
-package br.com.pvv.senai.model;
+package br.com.pvv.senai.entity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

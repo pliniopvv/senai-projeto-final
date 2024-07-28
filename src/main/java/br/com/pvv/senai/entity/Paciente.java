@@ -1,4 +1,4 @@
-package br.com.pvv.senai.model;
+package br.com.pvv.senai.entity;
 
 import java.util.Date;
 import java.util.List;
@@ -21,7 +21,7 @@ public class Paciente implements IEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long Id;
+	private long id;
 	@Column(length = 64, nullable = false)
 	private String nome; // 8-64
 	@Column(nullable = false)
@@ -51,12 +51,14 @@ public class Paciente implements IEntity {
 	@Column()
 	private String cuidadosEspecificos;
 	@Column()
+	private String convenio;
+	@Column()
 	private String numeroConvenio;
 	@Column()
 	private Date validadeConvenio;
 	@OneToOne()
 	private Endereco endereco;
-	
+
 	@OneToOne(cascade = CascadeType.DETACH, orphanRemoval = true)
 	@JoinColumn(name = "id_usuario", nullable = false)
 	private Usuario usuario;
@@ -66,12 +68,36 @@ public class Paciente implements IEntity {
 	@OneToMany
 	private List<Exame> exames;
 
+	public List<Consulta> getConsultas() {
+		return consultas;
+	}
+
+	public String getConvenio() {
+		return convenio;
+	}
+
+	public void setConvenio(String convenio) {
+		this.convenio = convenio;
+	}
+
+	public void setConsultas(List<Consulta> consultas) {
+		this.consultas = consultas;
+	}
+
+	public List<Exame> getExames() {
+		return exames;
+	}
+
+	public void setExames(List<Exame> exames) {
+		this.exames = exames;
+	}
+
 	public long getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(long id) {
-		Id = id;
+		id = id;
 	}
 
 	public String getNome() {

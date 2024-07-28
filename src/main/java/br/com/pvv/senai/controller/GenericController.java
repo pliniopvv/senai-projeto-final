@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.pvv.senai.controller.filter.IFilter;
+import br.com.pvv.senai.entity.IEntity;
 import br.com.pvv.senai.exceptions.DtoToEntityException;
-import br.com.pvv.senai.model.IEntity;
 import br.com.pvv.senai.model.dto.GenericDto;
 import br.com.pvv.senai.service.GenericService;
 import jakarta.validation.Valid;
@@ -29,7 +29,8 @@ public abstract class GenericController<U extends GenericDto<T>, T extends IEnti
 
 	@GetMapping
 	public Page<T> list(@RequestParam Map<String, String> params) throws Exception {
-		return getService().all(this.filterBuilder(params));
+		var filter = this.filterBuilder(params);
+		return getService().paged(filter.example(), filter.getPagination());
 	}
 
 	@GetMapping("{id}")

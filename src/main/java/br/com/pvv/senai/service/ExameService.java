@@ -1,10 +1,12 @@
 package br.com.pvv.senai.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import br.com.pvv.senai.model.Exame;
+import br.com.pvv.senai.entity.Exame;
 import br.com.pvv.senai.repository.ExameRepository;
 
 @Service
@@ -35,6 +37,10 @@ public class ExameService extends GenericService<Exame> {
 																					// DEVE ter sucesso.
 		model.setPaciente(paciente);
 		return super.alter(id, model);
+	}
+
+	public List<Exame> findByPacienteId(long id) {
+		return repository.findByPacienteId(id);
 	}
 
 }

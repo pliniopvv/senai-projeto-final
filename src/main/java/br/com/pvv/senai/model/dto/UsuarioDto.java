@@ -2,8 +2,8 @@ package br.com.pvv.senai.model.dto;
 
 import java.util.Date;
 
+import br.com.pvv.senai.entity.Usuario;
 import br.com.pvv.senai.enums.Perfil;
-import br.com.pvv.senai.model.Usuario;
 
 public class UsuarioDto extends GenericDto<Usuario> {
 

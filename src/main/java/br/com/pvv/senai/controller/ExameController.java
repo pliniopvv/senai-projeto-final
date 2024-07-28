@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.pvv.senai.controller.filter.IFilter;
+import br.com.pvv.senai.entity.Exame;
 import br.com.pvv.senai.exceptions.NotRequiredByProjectException;
-import br.com.pvv.senai.model.Exame;
 import br.com.pvv.senai.model.dto.ExameDto;
 import br.com.pvv.senai.service.ExameService;
 import br.com.pvv.senai.service.GenericService;

@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.pvv.senai.controller.filter.IFilter;
+import br.com.pvv.senai.entity.Consulta;
 import br.com.pvv.senai.exceptions.DtoToEntityException;
 import br.com.pvv.senai.exceptions.NotRequiredByProjectException;
-import br.com.pvv.senai.model.Consulta;
 import br.com.pvv.senai.model.dto.ConsultaDto;
 import br.com.pvv.senai.service.ConsultaService;
 import br.com.pvv.senai.service.GenericService;

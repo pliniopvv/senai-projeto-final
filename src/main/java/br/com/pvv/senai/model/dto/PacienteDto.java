@@ -1,11 +1,10 @@
 package br.com.pvv.senai.model.dto;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import br.com.pvv.senai.model.Paciente;
+import br.com.pvv.senai.entity.Paciente;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -43,6 +42,7 @@ public class PacienteDto extends GenericDto<Paciente> {
 	private String cttDeEmergencia;
 	private String alergias;
 	private String cuidadosEspecificos;
+	private String convenio;
 	private String numeroConvenio;
 	private Date validadeConvenio;
 	private EnderecoDto endereco;
@@ -50,6 +50,14 @@ public class PacienteDto extends GenericDto<Paciente> {
 	@Override
 	protected Class<Paciente> getType() {
 		return Paciente.class;
+	}
+
+	public String getConvenio() {
+		return convenio;
+	}
+
+	public void setConvenio(String convenio) {
+		this.convenio = convenio;
 	}
 
 	public Date getDataNascimento() {

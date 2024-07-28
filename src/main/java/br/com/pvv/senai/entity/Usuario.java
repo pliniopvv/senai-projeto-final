@@ -1,4 +1,4 @@
-package br.com.pvv.senai.model;
+package br.com.pvv.senai.entity;
 
 import java.util.ArrayList;
 import java.util.Collection;

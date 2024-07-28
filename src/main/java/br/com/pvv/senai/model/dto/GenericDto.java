@@ -4,8 +4,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import br.com.pvv.senai.entity.IEntity;
 import br.com.pvv.senai.exceptions.DtoToEntityException;
-import br.com.pvv.senai.model.IEntity;
 import br.com.pvv.senai.model.dto.annotations.SkipMakeEntity;
 
 public abstract class GenericDto<T extends IEntity> implements IEntity {

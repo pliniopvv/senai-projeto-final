@@ -1,10 +1,12 @@
 package br.com.pvv.senai.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import br.com.pvv.senai.model.Consulta;
+import br.com.pvv.senai.entity.Consulta;
 import br.com.pvv.senai.repository.ConsultaRepository;
 
 @Service
@@ -35,6 +37,10 @@ public class ConsultaService extends GenericService<Consulta> {
 																					// DEVE ter sucesso.
 		model.setPaciente(paciente);
 		return super.alter(id, model);
+	}
+
+	public List<Consulta> findByPacienteId(long id) {
+		return repository.findByPacienteId(id);
 	}
 
 }

@@ -8,7 +8,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import br.com.pvv.senai.model.Usuario;
+import br.com.pvv.senai.entity.Usuario;
 import br.com.pvv.senai.repository.UserRepository;
 import br.com.pvv.senai.service.GenericService;
 

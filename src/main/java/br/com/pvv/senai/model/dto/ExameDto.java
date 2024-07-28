@@ -5,7 +5,7 @@ import java.time.LocalTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import br.com.pvv.senai.model.Exame;
+import br.com.pvv.senai.entity.Exame;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
