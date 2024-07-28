@@ -7,12 +7,13 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import br.com.pvv.senai.enums.Perfil;
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,6 +32,7 @@ public class Usuario implements UserDetails, IEntity {
 	private Date dataNascimento;
 	@Column(length = 14)
 	private String cpf;
+	@Basic(fetch = FetchType.LAZY)
 	@Column(length = 255)
 	private String password;
 	@Column()

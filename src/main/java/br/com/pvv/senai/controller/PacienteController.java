@@ -15,6 +15,7 @@ import br.com.pvv.senai.model.Paciente;
 import br.com.pvv.senai.model.dto.PacienteDto;
 import br.com.pvv.senai.security.UsuarioService;
 import br.com.pvv.senai.service.GenericService;
+import br.com.pvv.senai.service.PacienteService;
 
 @Controller
 @RestController
@@ -22,7 +23,7 @@ import br.com.pvv.senai.service.GenericService;
 public class PacienteController extends GenericController<PacienteDto, Paciente> {
 
 	@Autowired
-	private GenericService<Paciente> service;
+	private PacienteService service;
 
 	@Autowired
 	private UsuarioService usuarioService;
@@ -31,17 +32,12 @@ public class PacienteController extends GenericController<PacienteDto, Paciente>
 	public GenericService<Paciente> getService() {
 		return service;
 	}
-	
-//	@GetMapping
-//	public List<Paciente> list(@RequestParam PacienteFilter filter) {
-//		return super.list(filter);
-//	}
 
 	@Override
 	public ResponseEntity post(PacienteDto model) throws Exception {
 		if (!usuarioService.has(model.getEmail()))
 			throw new PacienteUserNotFoundException(model.getEmail());
-		return super.post(model);
+		return ResponseEntity.status(201).body(service.create(model.makeEntity()));
 	}
 
 	@Override

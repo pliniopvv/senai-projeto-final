@@ -6,6 +6,7 @@ import java.util.List;
 
 import br.com.pvv.senai.exceptions.DtoToEntityException;
 import br.com.pvv.senai.model.IEntity;
+import br.com.pvv.senai.model.dto.annotations.SkipMakeEntity;
 
 public abstract class GenericDto<T extends IEntity> implements IEntity {
 
@@ -23,15 +24,20 @@ public abstract class GenericDto<T extends IEntity> implements IEntity {
 						.get();
 				boolean accessEntity = fieldEntity.canAccess(entity);
 				boolean accessDto = fieldDto.canAccess(this);
-				fieldEntity.setAccessible(true);
-				fieldDto.setAccessible(true);
 
-				var value = fieldDto.get(this);
-				if (value.getClass().equals(GenericDto.class)) {
-					GenericDto gDto = (GenericDto) value;
-					fieldEntity.set(entity, gDto.makeEntity());
-				} else {
-					fieldEntity.set(entity, value);
+				if (!fieldDto.isAnnotationPresent(SkipMakeEntity.class)) {
+					fieldEntity.setAccessible(true);
+					fieldDto.setAccessible(true);
+
+					var value = fieldDto.get(this);
+					if (value != null) {
+						if (value.getClass().getSuperclass().equals(GenericDto.class)) {
+							GenericDto gDto = (GenericDto) value;
+							fieldEntity.set(entity, gDto.makeEntity());
+						} else {
+							fieldEntity.set(entity, value);
+						}
+					}
 				}
 
 				fieldEntity.setAccessible(accessEntity);
