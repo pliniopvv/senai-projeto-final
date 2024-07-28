@@ -56,11 +56,15 @@ public class Paciente implements IEntity {
 	private Date validadeConvenio;
 	@OneToOne()
 	private Endereco endereco;
+	
 	@OneToOne(cascade = CascadeType.DETACH, orphanRemoval = true)
 	@JoinColumn(name = "id_usuario", nullable = false)
 	private Usuario usuario;
+
 	@OneToMany
 	private List<Consulta> consultas;
+	@OneToMany
+	private List<Exame> exames;
 
 	public long getId() {
 		return Id;

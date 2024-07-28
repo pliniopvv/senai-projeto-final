@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.pvv.senai.controller.filter.IFilter;
 import br.com.pvv.senai.exceptions.DtoToEntityException;
-import br.com.pvv.senai.exceptions.NotImplementedMethodException;
+import br.com.pvv.senai.exceptions.NotRequiredByProjectException;
 import br.com.pvv.senai.model.Consulta;
 import br.com.pvv.senai.model.dto.ConsultaDto;
 import br.com.pvv.senai.service.ConsultaService;
@@ -30,8 +30,8 @@ public class ConsultaController extends GenericController<ConsultaDto, Consulta>
 	}
 
 	@Override
-	public IFilter<Consulta> filterBuilder(Map<String, String> params) throws NotImplementedMethodException {
-		throw new NotImplementedMethodException();
+	public IFilter<Consulta> filterBuilder(Map<String, String> params) throws NotRequiredByProjectException {
+		throw new NotRequiredByProjectException();
 	}
 
 }
