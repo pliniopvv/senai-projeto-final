@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.pvv.senai.exceptions.UnauthorizationException;
+import br.com.pvv.senai.model.Usuario;
 import br.com.pvv.senai.model.dto.LoginRequestDTO;
+import br.com.pvv.senai.repository.UserRepository;
 import br.com.pvv.senai.security.TokenService;
 
 @RestController
@@ -19,6 +21,9 @@ public class LoginController {
 
 	@Autowired
 	private AuthenticationManager manager;
+	
+	@Autowired
+	private UserRepository repository;
 
 	@Autowired
 	private TokenService jwtService;
@@ -28,7 +33,9 @@ public class LoginController {
 		var usernamePassword = new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword());
 		try {
 			var auth = this.manager.authenticate(usernamePassword);
-			var token = jwtService.generateToken(usernamePassword);
+			Usuario user = repository.findByEmail(login.getUsername()).orElse(null);
+			if (user == null) throw new UnauthorizationException();
+			var token = jwtService.generateToken(user);
 
 			return ResponseEntity.ok(token);
 		} catch (Exception e) {

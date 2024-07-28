@@ -25,7 +25,15 @@ public abstract class GenericDto<T extends IEntity> implements IEntity {
 				boolean accessDto = fieldDto.canAccess(this);
 				fieldEntity.setAccessible(true);
 				fieldDto.setAccessible(true);
-				fieldEntity.set(entity, fieldDto.get(this));
+
+				var value = fieldDto.get(this);
+				if (value.getClass().equals(GenericDto.class)) {
+					GenericDto gDto = (GenericDto) value;
+					fieldEntity.set(entity, gDto.makeEntity());
+				} else {
+					fieldEntity.set(entity, value);
+				}
+
 				fieldEntity.setAccessible(accessEntity);
 				fieldDto.setAccessible(accessDto);
 			}

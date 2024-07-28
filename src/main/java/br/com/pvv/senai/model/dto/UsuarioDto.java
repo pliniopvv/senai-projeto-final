@@ -2,7 +2,7 @@ package br.com.pvv.senai.model.dto;
 
 import java.util.Date;
 
-import br.com.pvv.senai.enums.UserRole;
+import br.com.pvv.senai.enums.Perfil;
 import br.com.pvv.senai.model.Usuario;
 
 public class UsuarioDto extends GenericDto<Usuario> {
@@ -13,7 +13,7 @@ public class UsuarioDto extends GenericDto<Usuario> {
 	private Date dataNascimento;
 	private String cpf;
 	private String password;
-	private UserRole perfil;
+	private Perfil perfil;
 
 	public long getId() {
 		return Id;
@@ -63,11 +63,11 @@ public class UsuarioDto extends GenericDto<Usuario> {
 		this.password = password;
 	}
 
-	public UserRole getPerfil() {
+	public Perfil getPerfil() {
 		return perfil;
 	}
 
-	public void setPerfil(UserRole perfil) {
+	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
 	}
 

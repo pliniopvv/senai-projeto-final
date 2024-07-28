@@ -1,24 +1,35 @@
 package br.com.pvv.senai.controller;
 
-import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.pvv.senai.controller.filter.IFilter;
 import br.com.pvv.senai.exceptions.DtoToEntityException;
 import br.com.pvv.senai.model.IEntity;
 import br.com.pvv.senai.model.dto.GenericDto;
 import br.com.pvv.senai.service.GenericService;
+import jakarta.validation.Valid;
 
 @RestController
 public abstract class GenericController<U extends GenericDto<T>, T extends IEntity> {
 
 	public abstract GenericService<T> getService();
+	public abstract IFilter<T> filterBuilder(Map<String, String> params);
+
+	@GetMapping
+	public Page<T> list(@RequestParam Map<String, String> params) {
+		return getService().all(this.filterBuilder(params));
+	}
 
 	@GetMapping("{id}")
 	public T get(@PathVariable long id) {
@@ -26,13 +37,15 @@ public abstract class GenericController<U extends GenericDto<T>, T extends IEnti
 	}
 
 	@PutMapping("{id}")
-	public T put(@PathVariable long id, @RequestBody U model) throws DtoToEntityException {
-		return getService().alter(model.getId(), model.makeEntity());
+	public ResponseEntity put(@PathVariable long id, @Valid @RequestBody U model) throws DtoToEntityException {
+		getService().alter(model.getId(), model.makeEntity());
+		return ResponseEntity.noContent().build();
 	}
 
 	@PostMapping
-	public T post(@RequestBody U model) throws DtoToEntityException {
-		return getService().create(model.makeEntity());
+	public ResponseEntity post(@Valid @RequestBody U model) throws DtoToEntityException, Exception {
+		var entity = getService().create(model.makeEntity());
+		return ResponseEntity.status(201).body(entity);
 	}
 
 	@DeleteMapping("{id}")

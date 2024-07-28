@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -33,7 +34,7 @@ public class SecurityConfig {
 	private RSAPublicKey key;
 	@Value("${jwt.private.key}")
 	private RSAPrivateKey priv;
-	
+
 	@Autowired
 	private SecurityFilter secFilter;
 
@@ -41,8 +42,16 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/login").permitAll().requestMatchers("/usuarios")
-						.permitAll().anyRequest().authenticated())
+				.authorizeHttpRequests(auth -> auth
+						// LOGIN
+						.requestMatchers("/login").permitAll()
+						// CADASTRO
+						.requestMatchers("/usuarios").permitAll()
+						// PACIENTES
+						.requestMatchers("/pacientes**","/pacientes/**").hasAuthority("SCOPE_ROLE_MEDICO")
+						// OUTRAS ROTAS
+						.anyRequest().authenticated())
+				.oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
 				.addFilterBefore(secFilter, UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();

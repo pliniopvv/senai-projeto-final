@@ -10,7 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import br.com.pvv.senai.enums.UserRole;
+import br.com.pvv.senai.enums.Perfil;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,7 +34,7 @@ public class Usuario implements UserDetails, IEntity {
 	@Column(length = 255)
 	private String password;
 	@Column()
-	private UserRole perfil;
+	private Perfil perfil;
 
 	public long getId() {
 		return Id;
@@ -84,11 +84,11 @@ public class Usuario implements UserDetails, IEntity {
 		this.password = password;
 	}
 
-	public UserRole getPerfil() {
+	public Perfil getPerfil() {
 		return perfil;
 	}
 
-	public void setPerfil(UserRole perfil) {
+	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
 	}
 
@@ -98,11 +98,11 @@ public class Usuario implements UserDetails, IEntity {
 
 		switch (this.perfil) {
 		case ADMIN:
-			list.add(new SimpleGrantedAuthority("ADMIN"));
+			list.add(Perfil.ADMIN);
 		case MEDICO:
-			list.add(new SimpleGrantedAuthority("MEDICO"));
+			list.add(Perfil.MEDICO);
 		case PACIENTE:
-			list.add(new SimpleGrantedAuthority("PACIENTE"));
+			list.add(Perfil.PACIENTE);
 		}
 
 		return list;
