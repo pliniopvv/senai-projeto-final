@@ -24,10 +24,10 @@ import jakarta.validation.Valid;
 public abstract class GenericController<U extends GenericDto<T>, T extends IEntity> {
 
 	public abstract GenericService<T> getService();
-	public abstract IFilter<T> filterBuilder(Map<String, String> params);
+	public abstract IFilter<T> filterBuilder(Map<String, String> params) throws Exception;
 
 	@GetMapping
-	public Page<T> list(@RequestParam Map<String, String> params) {
+	public Page<T> list(@RequestParam Map<String, String> params) throws Exception {
 		return getService().all(this.filterBuilder(params));
 	}
 

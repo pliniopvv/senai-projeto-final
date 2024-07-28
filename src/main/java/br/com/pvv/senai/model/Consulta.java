@@ -1,0 +1,97 @@
+package br.com.pvv.senai.model;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
+public class Consulta implements IEntity {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long Id;
+	@Column(nullable = false)
+	private String motivoConsulta;
+	@Column(nullable = false)
+	private LocalDate dataConsulta;
+	@Column(nullable = false)
+	private LocalTime horaDaConsulta;
+	@Column(nullable = false, length = 1024)
+	private String descricaoDoProblema;
+	@Column()
+	private String medicacaoReceitada;
+	@Column(length = 1024)
+	private String dosagemEPrecausoes;
+	@Column(nullable = false)
+	private Paciente paciente;
+
+	public long getId() {
+		return Id;
+	}
+
+	public void setId(long id) {
+		Id = id;
+	}
+
+	public String getMotivoConsulta() {
+		return motivoConsulta;
+	}
+
+	public void setMotivoConsulta(String motivoConsulta) {
+		this.motivoConsulta = motivoConsulta;
+	}
+
+	public LocalDate getDataConsulta() {
+		return dataConsulta;
+	}
+
+	public void setDataConsulta(LocalDate dataConsulta) {
+		this.dataConsulta = dataConsulta;
+	}
+
+	public LocalTime getHoraDaConsulta() {
+		return horaDaConsulta;
+	}
+
+	public void setHoraDaConsulta(LocalTime horaDaConsulta) {
+		this.horaDaConsulta = horaDaConsulta;
+	}
+
+	public String getDescricaoDoProblema() {
+		return descricaoDoProblema;
+	}
+
+	public void setDescricaoDoProblema(String descricaoDoProblema) {
+		this.descricaoDoProblema = descricaoDoProblema;
+	}
+
+	public String getMedicacaoReceitada() {
+		return medicacaoReceitada;
+	}
+
+	public void setMedicacaoReceitada(String medicacaoReceitada) {
+		this.medicacaoReceitada = medicacaoReceitada;
+	}
+
+	public String getDosagemEPrecausoes() {
+		return dosagemEPrecausoes;
+	}
+
+	public void setDosagemEPrecausoes(String dosagemEPrecausoes) {
+		this.dosagemEPrecausoes = dosagemEPrecausoes;
+	}
+
+	public Paciente getPaciente() {
+		return paciente;
+	}
+
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
+	}
+
+}
