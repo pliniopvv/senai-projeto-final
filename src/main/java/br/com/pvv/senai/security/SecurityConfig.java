@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -26,6 +27,8 @@ import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 
+import br.com.pvv.senai.enums.Perfil;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -43,15 +46,68 @@ public class SecurityConfig {
 		http.csrf(csrf -> csrf.disable())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(auth -> auth
-						// LOGIN
-						.requestMatchers("/login").permitAll()
-						// CADASTRO
-						.requestMatchers("/usuarios").permitAll()
+						// ADMIN
+						.requestMatchers(HttpMethod.POST, //
+//								"/exames", //
+//								"/consultas", //
+//								"/pacientes" // , //
+								"/usuarios" //
+						).hasAuthority(Perfil.ADMIN.scope())//
+//						.requestMatchers(HttpMethod.PUT, //
+//								"/exames/{id}", //
+//								"/consultas/{id}", //
+//								"/pacientes/{id}")
+//						.hasAuthority(Perfil.ADMIN.scope())//
+//						.requestMatchers(HttpMethod.DELETE, //
+//								"/exames/{id}", //
+//								"/consultas/{id}", //
+//								"/pacientes/{id}")
+//						.hasAuthority(Perfil.ADMIN.scope())//
+//						.requestMatchers(HttpMethod.GET, //
+//								"/dashboard**", //
+//								"/pacientes/{id}/prontuarios", //
+//								"/pacientes/prontuarios", //
+////								"/exames/{id}", //
+////								"/consultas/{id}", //
+//								"/pacientes"// , //
+////								"/pacientes/{id}" //
+//						).hasAuthority(Perfil.ADMIN.scope())
+						// MEDICO
+						.requestMatchers(HttpMethod.POST, //
+								"/exames", //
+								"/consultas", //
+								"/pacientes")
+						.hasAuthority(Perfil.MEDICO.scope())//
+						.requestMatchers(HttpMethod.PUT, //
+								"/exames/{id}", //
+								"/consultas/{id}", //
+								"/pacientes/{id}")
+						.hasAuthority(Perfil.MEDICO.scope())//
+						.requestMatchers(HttpMethod.DELETE, //
+								"/exames/{id}", //
+								"/consultas/{id}", //
+								"/pacientes/{id}")
+						.hasAuthority(Perfil.MEDICO.scope())//
+						.requestMatchers(HttpMethod.GET, //
+								"/dashboard**", //
+								"/pacientes/{id}/prontuarios", //
+								"/pacientes/prontuarios", //
+//								"/exames/{id}", //
+//								"/consultas/{id}", //
+								"/pacientes" // , //
+//								"/pacientes/{id}" //
+						).hasAuthority(Perfil.MEDICO.scope())
 						// PACIENTES
-						.requestMatchers("/pacientes**","/pacientes/**").hasAuthority("SCOPE_ROLE_MEDICO")
-						// OUTRAS ROTAS
-						.anyRequest().authenticated())
-				.oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
+						.requestMatchers(HttpMethod.GET, //
+								"/pacientes/{id}", //
+								"/consultas/{id}", //
+								"/exames/{id}")
+						.hasAuthority(Perfil.PACIENTE.scope())
+						// QUEST
+						.requestMatchers("/login").permitAll()
+				// OUTRAS ROTAS
+//						.anyRequest().denyAll()//
+				).oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
 				.addFilterBefore(secFilter, UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();

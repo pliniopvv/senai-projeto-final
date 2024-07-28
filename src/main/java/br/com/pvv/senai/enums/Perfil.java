@@ -9,4 +9,8 @@ public enum Perfil implements GrantedAuthority {
 	public String getAuthority() {
 		return "ROLE_" + name();
 	}
+
+	public String scope() {
+		return "SCOPE_ROLE_" + name();
+	}
 }

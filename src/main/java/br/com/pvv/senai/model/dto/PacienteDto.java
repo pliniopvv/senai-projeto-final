@@ -12,7 +12,7 @@ import jakarta.validation.constraints.Size;
 
 public class PacienteDto extends GenericDto<Paciente> {
 
-	private long Id;
+	private long id;
 	@NotNull
 	@Size(min = 8, max = 64)
 	private String nome;
@@ -85,11 +85,11 @@ public class PacienteDto extends GenericDto<Paciente> {
 	}
 
 	public long getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(long id) {
-		Id = id;
+		id = id;
 	}
 
 	public String getGenero() {
