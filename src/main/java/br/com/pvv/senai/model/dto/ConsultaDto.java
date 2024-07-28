@@ -24,8 +24,8 @@ public class ConsultaDto extends GenericDto<Consulta> {
 	@NotNull
 	@Size(min = 16, max = 1024)
 	private String descricaoDoProblema;
-	@Size(min = 16, max = 256)
 	private String medicacaoReceitada;
+	@Size(min = 16, max = 256)
 	private String dosagemEPrecausoes;
 	@NotNull
 	private PacienteDto paciente;

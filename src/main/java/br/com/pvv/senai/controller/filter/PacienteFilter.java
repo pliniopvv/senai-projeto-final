@@ -21,7 +21,7 @@ public class PacienteFilter implements IFilter<Paciente> {
 		this.setNome(params.get("nome"));
 		this.setTelefone(params.get("telefone"));
 		this.setEmail(params.get("email"));
-		this.setPageNumber(params.get("pageNumber") != null ? Integer.parseInt(params.get("pageNumber")) : 1);
+		this.setPageNumber(params.get("pageNumber") != null ? Integer.parseInt(params.get("pageNumber")) : 0);
 		this.setPageSize(params.get("pageSize") != null ? Integer.parseInt(params.get("pageSize")) : 10);
 	}
 
@@ -36,7 +36,8 @@ public class PacienteFilter implements IFilter<Paciente> {
 		ExampleMatcher matcher = ExampleMatcher.matchingAny()
 				.withMatcher("nome", match -> match.ignoreCase().contains())
 				.withMatcher("telefone", match -> match.ignoreCase().exact())
-				.withMatcher("email", match -> match.ignoreCase().contains()).withIncludeNullValues();
+				.withMatcher("email", match -> match.ignoreCase().contains())
+				.withIgnoreNullValues();
 
 		Paciente paciente = new Paciente();
 		paciente.setNome(this.getNome());

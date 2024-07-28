@@ -31,8 +31,26 @@ public class PacienteService extends GenericService<Paciente> {
 		var usuario = this.userService.findByEmail(model.getEmail()).get();
 		model.setUsuario(usuario);
 		var retorno = super.create(model);
-		usuario.setPassword(null);
+//		usuario.setPassword(null); -> applied @JsonIgnore
 		return retorno;
+	}
+
+	@Override
+	public Paciente alter(long id, Paciente model) {
+		model.setId(id);
+		var endereco = model.getEndereco();
+		if (endereco != null && endereco.getId() == 0)
+			endereco = this.enderecoService.create(model.getEndereco());
+		var usuario = this.userService.findByEmail(model.getEmail()).get();
+		model.setUsuario(usuario);
+		var retorno = super.create(model);
+//		usuario.setPassword(null); -> applied @JsonIgnore
+		return retorno;
+	}
+
+	public Paciente findByEmail(String email) {
+		var paciente = repository.findByEmail(email);
+		return paciente;
 	}
 
 }

@@ -9,6 +9,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.pvv.senai.enums.Perfil;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -34,6 +36,7 @@ public class Usuario implements UserDetails, IEntity {
 	private String cpf;
 	@Basic(fetch = FetchType.LAZY)
 	@Column(length = 255)
+	@JsonIgnore
 	private String password;
 	@Column()
 	private Perfil perfil;

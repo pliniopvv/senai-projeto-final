@@ -24,6 +24,7 @@ import jakarta.validation.Valid;
 public abstract class GenericController<U extends GenericDto<T>, T extends IEntity> {
 
 	public abstract GenericService<T> getService();
+
 	public abstract IFilter<T> filterBuilder(Map<String, String> params) throws Exception;
 
 	@GetMapping
@@ -49,7 +50,8 @@ public abstract class GenericController<U extends GenericDto<T>, T extends IEnti
 	}
 
 	@DeleteMapping("{id}")
-	public boolean delete(@PathVariable long id) {
-		return getService().delete(id);
+	public ResponseEntity delete(@PathVariable long id) {
+		getService().delete(id);
+		return ResponseEntity.noContent().build();
 	}
 }

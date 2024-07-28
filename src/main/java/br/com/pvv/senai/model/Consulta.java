@@ -3,11 +3,15 @@ package br.com.pvv.senai.model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Consulta implements IEntity {
@@ -27,7 +31,8 @@ public class Consulta implements IEntity {
 	private String medicacaoReceitada;
 	@Column(length = 1024)
 	private String dosagemEPrecausoes;
-	@Column(nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+	@JoinColumn(name = "id_paciente")
 	private Paciente paciente;
 
 	public long getId() {

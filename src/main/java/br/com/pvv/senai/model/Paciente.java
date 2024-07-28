@@ -1,6 +1,7 @@
 package br.com.pvv.senai.model;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
@@ -12,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -54,9 +56,11 @@ public class Paciente implements IEntity {
 	private Date validadeConvenio;
 	@OneToOne()
 	private Endereco endereco;
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "id_usuario")
+	@OneToOne(cascade = CascadeType.DETACH, orphanRemoval = true)
+	@JoinColumn(name = "id_usuario", nullable = false)
 	private Usuario usuario;
+	@OneToMany
+	private List<Consulta> consultas;
 
 	public long getId() {
 		return Id;

@@ -15,7 +15,8 @@ public abstract class GenericService<T extends IEntity> {
 	public abstract JpaRepository<T, Long> getRepository();
 
 	public Page<T> all(IFilter<T> filter) {
-		return this.getRepository().findAll(filter.example(), filter.getPagination());
+		var retorno = this.getRepository().findAll(filter.example(), filter.getPagination());
+		return retorno;
 	}
 
 	public T create(T model) {
