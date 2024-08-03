@@ -3,8 +3,10 @@
 
 Links Úteis:
 
-[Trello]()
+[Trello](https://trello.com/invite/b/66a50d45c21d1d8be33011ff/ATTI198d33ba5caa5a1e45150da6ceec6c1972E37690/semana-11-modulo-2-pa)
 [Vídeo]()
+
+![Alt text](./projeto.svg)
 
 Como executar:
 
