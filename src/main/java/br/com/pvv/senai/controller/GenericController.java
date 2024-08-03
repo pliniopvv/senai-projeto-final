@@ -28,19 +28,26 @@ public abstract class GenericController<U extends GenericDto<T>, T extends IEnti
 	public abstract IFilter<T> filterBuilder(Map<String, String> params) throws Exception;
 
 	@GetMapping
-	public Page<T> list(@RequestParam Map<String, String> params) throws Exception {
+	public ResponseEntity<Page<T>> list(@RequestParam Map<String, String> params) throws Exception {
 		var filter = this.filterBuilder(params);
-		return getService().paged(filter.example(), filter.getPagination());
+		var list = getService().paged(filter.example(), filter.getPagination());
+		if (list.hasContent())
+			return ResponseEntity.ok(list);
+		return ResponseEntity.notFound().build();
 	}
 
 	@GetMapping("{id}")
 	public ResponseEntity get(@PathVariable long id) {
 		var retorno = getService().get(id);
+		if (retorno == null)
+			return ResponseEntity.notFound().build();
 		return ResponseEntity.ok(retorno);
 	}
 
 	@PutMapping("{id}")
 	public ResponseEntity put(@PathVariable long id, @Valid @RequestBody U model) throws DtoToEntityException {
+		if (getService().get(id) == null)
+			ResponseEntity.notFound().build();
 		getService().alter(model.getId(), model.makeEntity());
 		return ResponseEntity.noContent().build();
 	}
@@ -53,7 +60,8 @@ public abstract class GenericController<U extends GenericDto<T>, T extends IEnti
 
 	@DeleteMapping("{id}")
 	public ResponseEntity delete(@PathVariable long id) {
-		getService().delete(id);
-		return ResponseEntity.noContent().build();
+		if (getService().delete(id))
+			return ResponseEntity.noContent().build();
+		return ResponseEntity.notFound().build();
 	}
 }
